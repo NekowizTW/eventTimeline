@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8' />
+    <title>NekowizTW - 活動曜日時間軸</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//purecss.io/css/layouts/side-menu.css">
+    <link href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css' rel='stylesheet' />
+    <link href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link href='//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.2/jquery.qtip.min.css' rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+</head>
+<body>
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="#main">NekowizTW</a>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="http://zh.nekowiz.wikia.com" class="pure-menu-link">黑貓wikia</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">專案地址</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="header">
+                <h1>活動曜日時間軸</h1>
+                <h2>時間更新全部以官方公告為準，若有失準或是闕漏請回報黑貓wikia</h2>
+            </div>
+            <div id='calendar' class="content"></div>
+            <div class="content">
+                <h2>使用說明</h2>
+                <p>
+                    點選右上方的按鈕可以切換曜日（每日或緊急任務時間）以及活動（會顯示活動時間表）。<br>
+                    如果不小心按到別天，左上方有按鈕可以讓你回歸今天。
+                </p>
+                <h3>曜日部份</h3>
+                <p>
+                    時間軸預設為曜日時間，會顯示今天有哪些曜日任務。<br>
+                    上下拖曳時間軸可以觀看，紅線是當前時間，不另外做時鐘表示。<br>
+                    上方的全天橫幅會顯示當天有哪些活動，請多加利用。
+                </p>
+                <h3>活動部份</h3>
+                <p>
+                    會顯示當前周有哪些活動，淡紅色背景為當前日期。<br>
+                    用月份對於小顯示器的玩家會遮蔽部份任務影響判斷，所以請善用左上按鈕切換週期。
+                </p>
+                <aside>
+                    未來會測試0體時段在時間軸上的狀況，不過需要等待下次0體時段。<br>
+                    還在考慮是否要將協力之類的活動置入，或是設置按鈕來遮蔽曜日。
+                </aside>
+            </div>
+            <div class="footer">
+                <div class="legal pure-g">
+                    <div class="pure-u-1-2">
+                        <p class="legal-license">
+                            本專案使用CC0對原始碼授權，工具部份維持原來授權方式授權，資料來源遵照wikia授權
+                        </p>
+                    </div>
+
+                    <div class="pure-u-1-2">
+                        <p class="legal-copyright">
+                            Project created by OtomeSound
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//purecss.io/js/ui.js"></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/lang-all.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.2/jquery.qtip.min.js'></script>
+    <script src="//yamltojson.com/js/yaml.js"></script>
+    <script src="./assets/js/index.js"></script>
+</body>
+</html>
