@@ -32,3 +32,23 @@ aside {
     border-radius: 3px;
     color: #fff;
 }
+table .fc-event.fc-start.fc-not-end::before{
+    border: 1px solid transparent;
+    width: 8%;
+    height: 100%;
+    content: " ";
+    background-color: green;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+}
+table .fc-event.fc-not-start.fc-end::after{
+    border: 1px solid transparent;
+    width: 8%;
+    height: 100%;
+    content: " ";
+    background-color: red;
+    position: absolute;
+    right: -1px;
+    top: -1px;
+}

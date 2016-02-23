@@ -75,11 +75,27 @@ function loadEvent(type){
     }else return;
 }
 function parseData(data){
-    var res;
-    res = YAML.parse(data.query.pages[50134].revisions[0]['*']);
-    for(var i in res){
-        res[i].url = "http://zh.nekowiz.wikia.com/wiki/活動任務/"+res[i].title;
-        res[i].allDay = true;
+    var src, res = [];
+    src = YAML.parse(data.query.pages[50134].revisions[0]['*']);
+    for(var i in src){
+        var start = moment(src[i].start), end = moment(src[i].end);
+        if(moment(end).diff(moment(start)) < 86400000){
+            res.push({
+                title: src[i].title,
+                url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+src[i].title,
+                allDay: false,
+                start: start.format(),
+                end: end.format()
+            });
+        }else{
+            res.push({
+                title: src[i].title,
+                url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+src[i].title,
+                allDay: true,
+                start: start.hour(0).format(),
+                end: end.hour(24).format()
+            });
+        }
     }
     return res;
 }
