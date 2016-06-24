@@ -1,0 +1,11 @@
+#calendar{
+	width: 95%;
+}
+
+.fc-day-header{
+	color: white;
+}
+
+.fc-content{
+  text-align: center;
+}
