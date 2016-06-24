@@ -130,7 +130,7 @@ function startCalendar(events){
                     adjust: {x:15, y:15}
                 },
                 content: {
-                    title: function (e) { 
+                    text: function (e) {
                         var start_m = moment(event.start);
                         var end_m = moment(event.end);
                         // check same day
@@ -150,7 +150,7 @@ function startCalendar(events){
                             }
                         }
                     },
-                    text: event.title
+                    title: event.title
                 },
                 style: {
                     classes: 'qtip-rounded qtip-shadow'
