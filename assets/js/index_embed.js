@@ -1,10 +1,37 @@
 var nekowiz_events = [], nekowiz_weekly = [];
+function Event_Timer(event){
+    this.id = guidGenerator();
+    var id = this.id;
+    this.started = Date.now()>Date.parse(event.start)? true:false;
+    var started = this.started;
+    this.target_date = this.started? (new Date(event.end)):(new Date(event.start));
+    this.current_date = new Date();
+    this.count = new Countdown(this.target_date, this.current_date);
+    this.title = event.title;
+    var str = '<a target="_blank" href="http://zh.nekowiz.wikia.com/wiki/%E6%B4%BB%E5%8B%95%E4%BB%BB%E5%8B%99/'+this.title+'"><div class="quest"><p>'+this.title+'</p><div id="'+this.id+'"></div></div></a>';
+    $('#calendar').prepend(str);
+    this.count.countdown(function(obj) {
+        //Do anything you want with the obj, which contains days, hours, minutes, seconds
+        //This will be called every one second as the countdown timer goes
+        // console.debug(obj);
+        var str = started? "結束":"開始"
+        //E.g. you might use jQuery to update the countdown
+        $('#'+id).text("將於"+obj.days+"天"+obj.hours+"時"+obj.minutes+"分"+obj.seconds+"秒後"+str);
+    });
+}
+
 function init(){
     $.when(loadEvent())
     .then(function(events_s){
         nekowiz_events = parseData(events_s);
         startCalendar(nekowiz_events);
     });
+}
+function guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
 function loadEvent(){
     return $.ajax({
@@ -22,7 +49,7 @@ function loadEvent(){
 }
 function parseData(data){
     var src, res = [];
-    src = YAML.parse(data.query.pages[50134].revisions[0]['*']);
+    src = jsyaml.load(data.query.pages[50134].revisions[0]['*']);
     for(var i in src){
         var start = moment(src[i].start), end = moment(src[i].end);
         if(moment(end).diff(moment(start)) < 86400000){
@@ -46,71 +73,10 @@ function parseData(data){
     return res;
 }
 function startCalendar(events){
-    $('#calendar').fullCalendar({
-        lang: 'zh-tw',
-        theme:false,
-        editable: false,
-        header: {
-            left: 'prev,next',
-            center: '',
-            right: 'today'
-        },
-        views: {
-            week: { // name of view
-                columnFormat: 'ddd M/D'
-                // displayEventEnd: true
-                // other view-specific options here
-            }
-        },
-        axisFormat: "HH:mm",
-        scrollTime: moment.max(moment().startOf('day'), moment().subtract(3, 'hours')).format("HH:mm"),
-        defaultView: 'basicWeek',
-        timeFormat: 'HH:mm',
-        eventLimit: true, // allow "more" link when too many events
-        eventRender: function(event, element) {
-            element.qtip({
-                position: {
-                    my: 'top left',
-                    at: 'bottom right',
-                    target: 'mouse',
-                    adjust: {x:15, y:15}
-                },
-                content: {
-                    text: function (e) { 
-                        var start_m = moment(event.start);
-                        var end_m = moment(event.end);
-                        // check same day
-                        var is_same_day = ((start_m.dayOfYear() == end_m.dayOfYear()) && (start_m.year() == end_m.year()));
-                        // check all day
-                        console.log(start_m.format("HH:mm") + " ~ " + end_m.format("HH:mm"));
-                        if (start_m.hour() == 0 && start_m.minute() == 0 && end_m.hour() == 0 && end_m.minute() == 0) {
-                            if (end_m.diff(start_m, 'days') == 1) {
-                                return start_m.format("MM月DD日");
-                            } else {
-                                return start_m.format("MM月DD日") + " ~ " + end_m.format("MM月DD日");
-                            }
-                        } else {
-                            if (is_same_day) {
-                                return start_m.format("HH:mm") + " ~ " + end_m.format("HH:mm");
-                            } else {
-                                return start_m.format("MM月DD日 HH:mm") + " ~ " + end_m.format("MM月DD日 HH:mm");
-                            }
-                        }
-                    },
-                    title: event.title
-                },
-                style: {
-                    classes: 'qtip-rounded qtip-shadow'
-                }
-            });
-        },
-        style: {
-            classes: 'qtip-blue qtip-shadow'
-        },
-        viewRender: function (view) {},
-        events: events
-    });
-    $('#calendar').fullCalendar( 'addEventSource', nekowiz_weekly );
+    var timer = new Array(events.length);
+    for (var i = events.length - 1; i >= 0; i--) {
+        timer[i] = new Event_Timer(events[i]);
+    }
 }
 $(document).ready(function() {
     init();

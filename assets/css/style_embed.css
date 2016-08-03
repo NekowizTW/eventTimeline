@@ -1,11 +1,48 @@
 #calendar{
-	width: 95%;
+  width: 95%;
 }
 
 .fc-day-header{
-	color: white;
+  color: white;
 }
 
 .fc-content{
   text-align: center;
+}
+.quest {
+    position: relative;
+    width: 400px;
+    background-image: url(../images/quest_bg.png);
+    background-size: 100% auto;
+    background-position: 0px 3px;
+    height: 87px;
+}
+.quest:before,.quest:after {
+  content: "";
+  position: absolute;
+}
+  .quest:before {
+}
+  .quest:after {
+}
+.quest > p {
+  position: absolute;
+  width: 100%;
+  top: 17px;
+  left: 50px;
+  color: white;
+  font-size: 15px;
+}
+.quest > div {
+  position: absolute;
+  bottom: 15%;
+  right: 20%;
+  height: 20px;
+  color: white;
+  padding-top:0px;
+  background-color: rgba(0, 0, 0, .5);
+  font-size: 12px;
+}
+.quest > div >p{
+margin-top: 0px;
 }

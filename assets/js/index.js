@@ -76,7 +76,7 @@ function loadEvent(type){
 }
 function parseData(data){
     var src, res = [];
-    src = YAML.parse(data.query.pages[50134].revisions[0]['*']);
+    src = jsyaml.load(data.query.pages[50134].revisions[0]['*']);
     for(var i in src){
         var start = moment(src[i].start), end = moment(src[i].end);
         if(moment(end).diff(moment(start)) < 86400000){
