@@ -1,9 +1,9 @@
-var nekowiz_events = [], nekowiz_weekly = [];
+var nekowiz_events = [], nekowiz_weekly = [], nekowiz_zero = [];
 function init(){
     $.when(loadEvent('weekly'), loadEvent('events'))
     .then(function(weekly_s, events_s){
         nekowiz_weekly = weekly_s[0];
-        nekowiz_events = parseData(events_s[0]);
+        parseData(events_s[0]);
         startCalendar(nekowiz_events);
     });
 }
@@ -37,7 +37,6 @@ function dailyButton(){
     if($('#event-toggle-btn').length == 0){
         $('#calendar .fc-toolbar .fc-right').append('<button id="event-toggle-btn" class="fc-button fc-state-default fc-corner-left fc-corner-right" data-eventtype="daily" type="button">曜日</button>');
         $('#event-toggle-btn').bind('click', function(){
-            console.log($(this).data('eventtype'));
             switch($(this).data('eventtype')){
                 case 'daily': 
                     $(this).text("活動");
@@ -50,6 +49,34 @@ function dailyButton(){
                     $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
                     $('#calendar').fullCalendar( 'addEventSource', nekowiz_weekly );
                     $(this).data('eventtype', 'daily');
+                    break;
+                default:
+            }
+        });
+    }
+}
+function zeroButton(){
+    if($('#zero-toggle-btn').length == 0){
+        $('#calendar .fc-toolbar .fc-right').append('<button id="zero-toggle-btn" class="fc-button fc-state-default fc-corner-left fc-corner-right" data-zerotype="events_only" type="button">只有活動</button>');
+        $('#zero-toggle-btn').bind('click', function(){
+            switch($(this).data('zerotype')){
+                case 'zero_only':
+                    $(this).text("只有活動");
+                    $('#event-toggle-btn').show();
+                    $('#event-toggle-btn').text("活動");
+                    $('#event-toggle-btn').data('eventtype', 'events');
+                    $('#calendar').fullCalendar( 'changeView', 'basicWeek' );
+                    $('#calendar').fullCalendar( 'removeEventSource', nekowiz_zero );
+                    $('#calendar').fullCalendar( 'addEventSource', nekowiz_events );
+                    $(this).data('zerotype', 'events_only');
+                    break;
+                case 'events_only':
+                    $(this).text("0體時段");
+                    $('#event-toggle-btn').hide();
+                    $('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
+                    $('#calendar').fullCalendar( 'removeEventSources' );
+                    $('#calendar').fullCalendar( 'addEventSource', nekowiz_zero );
+                    $(this).data('zerotype', 'zero_only');
                     break;
                 default:
             }
@@ -75,20 +102,22 @@ function loadEvent(type){
     }else return;
 }
 function parseData(data){
-    var src, res = [];
+    var src, zeroFlag = false;
     src = jsyaml.load(data.query.pages[50134].revisions[0]['*']);
     for(var i in src){
-        var start = moment(src[i].start), end = moment(src[i].end);
+        var start = moment(src[i].start), end = moment(src[i].end), now = moment(Date());
         if(moment(end).diff(moment(start)) < 86400000){
-            res.push({
+            if(now.isBefore(end)) zeroFlag = true;
+            nekowiz_zero.push({
                 title: src[i].title,
                 url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+src[i].title,
                 allDay: false,
                 start: start.format(),
-                end: end.format()
+                end: end.format(),
+                className: "zeroEvent-"+src[i].color
             });
         }else{
-            res.push({
+            nekowiz_events.push({
                 title: src[i].title,
                 url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+src[i].title,
                 allDay: true,
@@ -97,13 +126,14 @@ function parseData(data){
             });
         }
     }
-    return res;
+    if(!zeroFlag) nekowiz_zero = [];
 }
 function startCalendar(events){
     $('#calendar').fullCalendar({
         lang: 'zh-tw',
         theme:false,
         editable: false,
+        height: 650,
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -121,7 +151,10 @@ function startCalendar(events){
         defaultView: 'agendaDay',
         timeFormat: 'HH:mm',
         eventLimit: true, // allow "more" link when too many events
-        eventRender: function(event, element) {
+        eventRender: function(event, element, view) {
+            if(view.name === 'basicDay' || view.name === 'basicWeek') {
+                $(element).height(30);
+            }
             element.qtip({
                 position: {
                     my: 'top left',
@@ -164,6 +197,7 @@ function startCalendar(events){
             try {
                 setTimeline();
                 dailyButton();
+                if(nekowiz_zero.length > 0) zeroButton();
             } catch (err) {}
         },
         events: events

@@ -52,3 +52,15 @@ table .fc-event.fc-not-start.fc-end::after{
     right: -1px;
     top: -1px;
 }
+
+.zeroEvent-red{
+    background-color: rgb(96, 20, 20);
+}
+
+.zeroEvent-yellow{
+    background-color: rgb(140, 124, 48);
+}
+
+.zeroEvent-blue{
+    background-color: rgb(38, 55, 94);
+}
