@@ -104,6 +104,9 @@ function loadEvent(type){
 function parseData(data){
     var src, zeroFlag = false;
     src = jsyaml.load(data.query.pages[50134].revisions[0]['*']);
+    src = src.sort(function(a, b){
+        return moment(a.start) - moment(b.start);
+    });
     for(var i in src){
         var start = moment(src[i].start), end = moment(src[i].end), now = moment(Date());
         if(moment(end).diff(moment(start)) < 86400000){
@@ -197,12 +200,44 @@ function startCalendar(events){
             try {
                 setTimeline();
                 dailyButton();
-                if(nekowiz_zero.length > 0) zeroButton();
+                if(nekowiz_zero.length > 0){
+                    zeroButton();
+                    zeroNotify();
+                }
             } catch (err) {}
         },
         events: events
     });
     $('#calendar').fullCalendar( 'addEventSource', nekowiz_weekly );
+}
+function zeroNotify(){
+    console.log('notify_pass');
+    var now = moment();
+    var prop = {
+        "zeroEvent-red": "火",
+        "zeroEvent-blue": "水",
+        "zeroEvent-yellow": "雷"
+    };
+    if(nekowiz_zero.length == 0) return;
+    for(var i = 0; i < nekowiz_zero.length; i++){
+        if(moment(nekowiz_zero[i].end) > now){
+            if(moment(nekowiz_zero[i].start) < now){
+                $('#zeroNotify').append(
+                    '<aside class="warning">目前0體時段: '+nekowiz_zero[i].title+'<br>'
+                    +'Boss屬性: '+prop[nekowiz_zero[i].className]+'<br>'
+                    +'<a href='+nekowiz_zero[i].url+'>關卡資料請點此</a>'+'<br>'
+                    +'</aside>');
+                if(nekowiz_zero.length - i > 1)i++;
+                else break;
+            }
+            $('#zeroNotify').append(
+                    '<aside class="secondary">下一個0體時段: '+nekowiz_zero[i].title+'<br>'
+                    +'Boss屬性: '+prop[nekowiz_zero[i].className]+'<br>'
+                    +'<a href='+nekowiz_zero[i].url+'>關卡資料請點此</a>'+'<br>'
+                    +'</aside>');
+            break;
+        }
+    }
 }
 $(document).ready(function() {
     init();

@@ -32,6 +32,12 @@ aside {
     border-radius: 3px;
     color: #fff;
 }
+aside.warning {
+    background: rgb(223, 117, 20);
+}
+aside.secondary {
+    background: rgb(66, 184, 221);
+}
 table .fc-event.fc-start.fc-not-end::before{
     border: 1px solid transparent;
     width: 8%;
