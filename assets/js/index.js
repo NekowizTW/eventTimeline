@@ -132,6 +132,7 @@ function parseData(data){
     if(!zeroFlag) nekowiz_zero = [];
 }
 function startCalendar(events){
+    if(nekowiz_zero.length > 0) zeroNotify();
     $('#calendar').fullCalendar({
         lang: 'zh-tw',
         theme:false,
@@ -202,7 +203,6 @@ function startCalendar(events){
                 dailyButton();
                 if(nekowiz_zero.length > 0){
                     zeroButton();
-                    zeroNotify();
                 }
             } catch (err) {}
         },
@@ -213,32 +213,35 @@ function startCalendar(events){
 function zeroNotify(){
     console.log('notify_pass');
     var now = moment();
-    var prop = {
-        "zeroEvent-red": "火",
-        "zeroEvent-blue": "水",
-        "zeroEvent-yellow": "雷"
-    };
     if(nekowiz_zero.length == 0) return;
     for(var i = 0; i < nekowiz_zero.length; i++){
         if(moment(nekowiz_zero[i].end) > now){
             if(moment(nekowiz_zero[i].start) < now){
                 $('#zeroNotify').append(
-                    '<aside class="warning">目前0體時段: '+nekowiz_zero[i].title+'<br>'
-                    +'Boss屬性: '+prop[nekowiz_zero[i].className]+'<br>'
-                    +'<a href='+nekowiz_zero[i].url+'>關卡資料請點此</a>'+'<br>'
-                    +'</aside>');
+                    '<a href='+nekowiz_zero[i].url+'>'
+                    +'<p class="warning">'+'目前0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
+                    +'<img class="pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
+                    +'</a>'
+                );
                 if(nekowiz_zero.length - i > 1)i++;
                 else break;
             }
             $('#zeroNotify').append(
-                    '<aside class="secondary">下一個0體時段: '+nekowiz_zero[i].title+'<br>'
-                    +'Boss屬性: '+prop[nekowiz_zero[i].className]+'<br>'
-                    +'<a href='+nekowiz_zero[i].url+'>關卡資料請點此</a>'+'<br>'
-                    +'</aside>');
+                '<a href='+nekowiz_zero[i].url+'>'
+                +'<p>'+'下一個0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
+                +'<img class="pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
+                +'</a>'
+            );
             break;
         }
     }
 }
+function displayTime() {
+    var time = moment().format('MM月DD日 HH:mm:ss');
+    $('#clock').html('現在時間：'+time+'');
+    setTimeout(displayTime, 1000);
+}
 $(document).ready(function() {
     init();
+    displayTime();
 });

@@ -32,11 +32,22 @@ aside {
     border-radius: 3px;
     color: #fff;
 }
-aside.warning {
-    background: rgb(223, 117, 20);
+#zeroNotify{
+    position: relative;
 }
-aside.secondary {
-    background: rgb(66, 184, 221);
+#zeroNotify p {
+    position: absolute;
+    color: white;
+    bottom: -5%;
+    height: 15%;
+    width: 80%;
+    min-height: 30px;
+    max-width: 800px;
+    padding-left: 10px;
+    padding-top: 10px;
+    background: linear-gradient(left,rgba(0, 0, 0, .9),rgba(0, 0, 0, 0));
+    background: -moz-linear-gradient(letf,rgba(0, 0, 0, .9),rgba(0, 0, 0, 0));
+    background: -webkit-linear-gradient(left,rgba(0, 0, 0, .9),rgba(0, 0, 0, 0));
 }
 table .fc-event.fc-start.fc-not-end::before{
     border: 1px solid transparent;
