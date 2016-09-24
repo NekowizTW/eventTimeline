@@ -218,18 +218,18 @@ function zeroNotify(){
         if(moment(nekowiz_zero[i].end) > now){
             if(moment(nekowiz_zero[i].start) < now){
                 $('#zeroNotify').append(
-                    '<a href='+nekowiz_zero[i].url+'>'
-                    +'<p class="warning">'+'目前0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
-                    +'<img class="pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
+                    '<a class="pure-g" href='+nekowiz_zero[i].url+'>'
+                    +'<p class="pure-u-1">'+'目前0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
+                    +'<img class="pure-u-1 pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
                     +'</a>'
                 );
                 if(nekowiz_zero.length - i > 1)i++;
                 else break;
             }
             $('#zeroNotify').append(
-                '<a href='+nekowiz_zero[i].url+'>'
-                +'<p>'+'下一個0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
-                +'<img class="pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
+                '<a class="pure-g" href='+nekowiz_zero[i].url+'>'
+                +'<p class="pure-u-1">'+'下一個0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
+                +'<img class="pure-u-1 pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
                 +'</a>'
             );
             break;

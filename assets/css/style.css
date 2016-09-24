@@ -32,10 +32,10 @@ aside {
     border-radius: 3px;
     color: #fff;
 }
-#zeroNotify{
+#zeroNotify > a{
     position: relative;
 }
-#zeroNotify p {
+#zeroNotify > a > p {
     position: absolute;
     color: white;
     bottom: -5%;
@@ -48,6 +48,10 @@ aside {
     background: linear-gradient(left,rgba(0, 0, 0, .9),rgba(0, 0, 0, 0));
     background: -moz-linear-gradient(letf,rgba(0, 0, 0, .9),rgba(0, 0, 0, 0));
     background: -webkit-linear-gradient(left,rgba(0, 0, 0, .9),rgba(0, 0, 0, 0));
+}
+#zeroNotify > a > img {
+    width: 100%;
+    height: 100%;
 }
 table .fc-event.fc-start.fc-not-end::before{
     border: 1px solid transparent;
