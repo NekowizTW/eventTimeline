@@ -113,7 +113,7 @@ function parseData(data){
             if(now.isBefore(end)) zeroFlag = true;
             nekowiz_zero.push({
                 title: src[i].title,
-                url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+src[i].title,
+                url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+encodeURI(src[i].title),
                 allDay: false,
                 start: start.format(),
                 end: end.format(),
@@ -122,7 +122,7 @@ function parseData(data){
         }else{
             nekowiz_events.push({
                 title: src[i].title,
-                url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+src[i].title,
+                url: "http://zh.nekowiz.wikia.com/wiki/活動任務/"+encodeURI(src[i].title),
                 allDay: true,
                 start: start.hour(0).format(),
                 end: end.hour(24).format()
@@ -220,7 +220,7 @@ function zeroNotify(){
                 $('#zeroNotify').append(
                     '<a class="pure-g" href='+nekowiz_zero[i].url+'>'
                     +'<p class="pure-u-1">'+'目前0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
-                    +'<img class="pure-u-1 pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
+                    +'<img class="pure-u-1 pure-img" src="./assets/images/'+encodeURI(nekowiz_zero[i].title)+'.png">'
                     +'</a>'
                 );
                 if(nekowiz_zero.length - i > 1)i++;
@@ -229,7 +229,7 @@ function zeroNotify(){
             $('#zeroNotify').append(
                 '<a class="pure-g" href='+nekowiz_zero[i].url+'>'
                 +'<p class="pure-u-1">'+'下一個0體時段: '+moment(nekowiz_zero[i].start).format('MM月DD日 HH:mm')+'~'+moment(nekowiz_zero[i].end).format('HH:mm')+'</p>'
-                +'<img class="pure-u-1 pure-img" src="./assets/images/'+nekowiz_zero[i].title+'.png">'
+                +'<img class="pure-u-1 pure-img" src="./assets/images/'+encodeURI(nekowiz_zero[i].title)+'.png">'
                 +'</a>'
             );
             break;
