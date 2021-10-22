@@ -14,12 +14,12 @@
       },
       {
         "name": "拉娜三姊妹的魔導緊急訓練<敵方技能>",
-        "image": "btn_tower_burning_160509.png",
+        "image": "btn_lana_3sisters01_180316.png",
         "url": "https://nekowiz.fandom.com/zh/wiki/活動任務/拉娜三姊妹的魔導緊急訓練"
       },
       {
         "name": "拉娜三姊妹的魔導緊急訓練<精靈大結晶>",
-        "image": "btn_tower_burning_160509.png",
+        "image": "btn_lana_3sisters01_180316.png",
         "url": "https://nekowiz.fandom.com/zh/wiki/活動任務/拉娜三姊妹的魔導緊急訓練"
       },
       {
@@ -109,7 +109,7 @@
     "quests": [
       {
         "name": "超魔導緊急訓練塔",
-        "image": "btn_lana_3sisters01_180316.png",
+        "image": "btn_tower_burning_160509.png",
         "url": "https://nekowiz.fandom.com/zh/wiki/活動任務/超魔導緊急訓練塔"
       },
       {
