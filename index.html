@@ -3,14 +3,12 @@
 <head>
     <meta charset='utf-8' />
     <title>NekowizTW - 活動曜日時間軸</title>
+    <link rel="icon" type="image/png" href="./favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/side-menu.css">
-    <link href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css' rel='stylesheet' />
-    <link href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <link href='//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.2/jquery.qtip.min.css' rel='stylesheet' />
+    <link href='https://unpkg.com/fullcalendar@5.10.0/main.min.css' rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 <body>
@@ -25,7 +23,6 @@
             <div class="pure-menu">
                 <a class="pure-menu-heading" href="http://nekowiztw.github.io/">NekowizTW</a>
                 <ul class="pure-menu-list">
-                    <li class="pure-menu-item"><a href="#about" class="pure-menu-link">關於此專案</a></li>
                     <li class="pure-menu-item"><a href="http://zh.nekowiz.wikia.com" class="pure-menu-link">黑貓wikia</a></li>
                     <li class="pure-menu-item"><a href="https://github.com/NekowizTW/eventTimeline" class="pure-menu-link">專案地址</a></li>
                 </ul>
@@ -38,101 +35,62 @@
                 <h2>時間更新全部以官方公告為準，若有失準或是闕漏請回報黑貓wikia</h2>
                 <p id="clock"></p>
             </div>
-            <div id="zeroNotify" class="content"></div>
             <div id='calendar' class="content"></div>
             <div class="content">
                 <h2>使用說明</h2>
                 <p>
-                    新功能：點選「只有活動」可以切換到「0體時段」，再點一下可以切回來。<br>
-                    點選右上方的按鈕可以切換曜日（每日或緊急任務時間）以及活動（會顯示活動時間表）。<br>
-                    如果不小心按到別天，左上方有按鈕可以讓你回歸今天。
+                    左上方按鈕可以用來切換顯示活動或是顯示轉蛋，右上方可以用來切換上下週。<br>
+                    如果不小心按到別天，右上方有按鈕可以讓你回歸今天。<br>
+                    下列為上方日程表會出現的項目種類：
+                    <ul style="color: white;">
+                        <li class="primary">活動任務[首開]：此活動第一次出現在遊戲中。</li>
+                        <li class="secondary">活動任務[復刻]：此活動在過去出現至少一次，有繼承紀錄。</li>
+                        <li class="login">登入獎勵：每天下午三點後進入遊戲可以獲得獎勵。</li>
+                        <li class="gacha">活動轉蛋：有開放限時轉蛋機。</li>
+                        <li class="present">獎勵關卡：有只送獎勵的任務關卡。</li>
+                    </ul>
                 </p>
-                <h3>0體時段<b style="color:red;">（新功能）</b></h3>
-                <p>
-                    雖然上方有當前或下次0體時段的橫幅通知，你還是可以用此時間軸確認0體時段。<br>
-                    凌晨看表的玩家請注意要將此表<b>「往下捲動」</b>，畢竟預設是跟著當前時間走的。
-                </p>
-                <h3>曜日部份</h3>
-                <p>
-                    時間軸預設為曜日時間，會顯示今天有哪些曜日任務。<br>
-                    上下拖曳時間軸可以觀看，<b>紅線是當前時間，時鐘在標題列</b>。<br>
-                    上方的<b>全天軸(all-day)</b>會顯示當天有哪些活動，請多加利用。
-                </p>
-                <h3>活動部份</h3>
-                <p>
-                    會顯示當前周有哪些活動，<b>淡紅色背景為當前日期</b>。<br>
-                    已嘗試將時間軸與任務寬度拉大，希望能改散擁擠問題。
-                </p>
+                <h2>常駐活動列表</h2>
+                <div id="normalQuests" class="pure-g">
+                    
+                </div>
             </div>
             <div id="about" class="footer">
                 <div class="header">
-                    <h1>關於本專案</h1>
+                    <h2>關於本專案</h2>
                 </div>
                 <div class="content">
                     <p>本專案使用以下工具來建立，在此標記以下工具的授權方式</p>
                     <div class="pure-g">
-                        <div class="pure-u-1-2">
+                        <div class="pure-u-1 pure-u-md-1-2">
                             <a href="http://purecss.io/">
                                 <h3>Pure CSS</h3>
                             </a>
                             <p class="legal-copyright">Licensed By <a href="https://github.com/yahoo/pure-site/blob/master/LICENSE.md">Yahoo BSD License</a></p>
-                            <p>使用在建立版面上</p>
                         </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
-                            <a href="http://fontawesome.io/">
-                                <h3>Font Awesome</h3>
+                        <div class="pure-u-1 pure-u-md-1-2">
+                            <a href="https://fullcalendar.io/">
+                                <h3>Fetch-JSONP</h3>
                             </a>
-                            <p class="legal-copyright">Licensed By <a href="http://opensource.org/licenses/mit-license.html">MIT</a></p>
-                            <p>使用在部分圖示上</p>
+                            <p class="legal-copyright">Licensed By <a href="https://github.com/arshaw/fullcalendar/blob/master/license.txt">MIT</a></p>
                         </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
+                        <div class="pure-u-1 pure-u-md-1-2">
                             <a href="https://fullcalendar.io/">
                                 <h3>Full Calendar</h3>
                             </a>
                             <p class="legal-copyright">Licensed By <a href="https://github.com/arshaw/fullcalendar/blob/master/license.txt">MIT</a></p>
-                            <p>使用在主要功能上</p>
                         </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
-                            <a href="https://fullcalendar.io/">
-                                <h3>jQuery</h3>
-                            </a>
-                            <p class="legal-copyright">Licensed By <a href="https://tldrlegal.com/license/mit-license">MIT</a></p>
-                            <p>使用在主要功能的輔助上</p>
-                        </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
+                        <div class="pure-u-1 pure-u-md-1-2">
                             <a href="http://momentjs.com/">
                                 <h3>MomentJS</h3>
                             </a>
                             <p class="legal-copyright">Licensed By <a href="https://github.com/moment/moment/blob/develop/LICENSE">MIT</a></p>
-                            <p>使用在主要功能的輔助上</p>
                         </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
-                            <a href="http://momentjs.com/">
-                                <h3>js-yaml</h3>
-                            </a>
-                            <p class="legal-copyright">Licensed By <a href="https://github.com/nodeca/js-yaml/blob/master/LICENSE">MIT</a></p>
-                            <p>使用在資料溝通上，也方便在wikia上的協作者編輯</p>
-                        </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
-                            <a href="http://momentjs.com/">
-                                <h3>js-yaml</h3>
-                            </a>
-                            <p class="legal-copyright">Licensed By <a href="https://github.com/nodeca/js-yaml/blob/master/LICENSE">MIT</a></p>
-                            <p>使用在資料溝通上，也方便在wikia上的協作者編輯</p>
-                        </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
-                            <a href="http://momentjs.com/">
-                                <h3>js-yaml</h3>
-                            </a>
-                            <p class="legal-copyright">Licensed By <a href="https://github.com/nodeca/js-yaml/blob/master/LICENSE">MIT</a></p>
-                            <p>使用在資料溝通上，也方便在wikia上的協作者編輯</p>
-                        </div>
-                        <div class="pure-u-1-1 pure-u-sm-1-2">
+                        <div class="pure-u-1 pure-u-md-1-2">
                             <a href="http://fandom.wikia.com/">
                                 <h3>Fandom powered by wikia</h3>
                             </a>
                             <p class="legal-copyright">Licensed By <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /><br></a></p>
-                            <p>資料來源，左上方可連結至黑貓wiki</p>
                         </div>
                     </div>
                 </div>
@@ -152,13 +110,11 @@
             </div>
         </div>
     </div>
-    <script src="//purecss.io/js/ui.js"></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.0/fullcalendar.min.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.0/locale-all.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js'></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/js-yaml/3.6.1/js-yaml.min.js"></script>
+    <script src="https://purecss.io/js/ui.js"></script>
+    <script src="https://unpkg.com/fetch-jsonp@1.1.1/build/fetch-jsonp.js"></script>
+    <script src="https://unpkg.com/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://unpkg.com/fullcalendar@5.10.0/main.min.js"></script>
+    <script src="https://unpkg.com/fullcalendar@5.10.0/locales-all.min.js"></script>
     <script src="./assets/js/index.js"></script>
 </body>
 </html>
